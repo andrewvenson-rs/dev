@@ -1,6 +1,6 @@
 export interface ApiRequest {
-	APIUsername: string;
-	APIPassword: string;
-	Version: string;
-	APIEnvironment: string;
+  APIUsername: string;
+  APIPassword: string;
+  Version: string;
+  APIEnvironment: string;
 }

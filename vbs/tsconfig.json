@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",         // Output directory for .js files
-    "rootDir": "./src",         // Your source directory with .ts files
-    "module": "commonjs",       // Use commonjs for Node.js compatibility
-    "target": "es6",            // Target ES6 for modern JS syntax
-    "esModuleInterop": true     // Enable ES module interop
+    "outDir": "./dist", // Output directory for .js files
+    "rootDir": "./src", // Your source directory with .ts files
+    "module": "commonjs", // Use commonjs for Node.js compatibility
+    "target": "es6", // Target ES6 for modern JS syntax
+    "esModuleInterop": true // Enable ES module interop
   },
   "include": ["src/**/*"]
 }

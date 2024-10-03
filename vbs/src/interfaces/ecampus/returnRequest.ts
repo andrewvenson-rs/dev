@@ -1,21 +1,21 @@
-import { Error } from './error'
-import { ApiRequest } from './apiRequest'
+import { Error } from "./error";
+import { ApiRequest } from "./apiRequest";
 
 export interface CreateReturnRequest extends ApiRequest {
-	ReturnItems: ReturnItem[];
+  ReturnItems: ReturnItem[];
 }
 
 export interface ReturnItem {
-	EcampusOrderItemID: number;
-	Quantity: number;
+  EcampusOrderItemID: number;
+  Quantity: number;
 }
 
 export interface CreateReturnResponse {
-	CreateReturnResult: CreateReturnResult;
+  CreateReturnResult: CreateReturnResult;
 }
 
 export interface CreateReturnResult {
-	Errors?: Error[];
-	ReturnID?: string;
-	ReturnLabelURL?: string;
+  Errors?: Error[];
+  ReturnID?: string;
+  ReturnLabelURL?: string;
 }
