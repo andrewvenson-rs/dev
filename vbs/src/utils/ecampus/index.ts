@@ -1,4 +1,5 @@
-import soap from 'soap';
+const soap = require('soap');
+
 import { parseStringPromise } from 'xml2js';
 
 export const createSoapClient = async (wsdlUrl: string): Promise<any> => {

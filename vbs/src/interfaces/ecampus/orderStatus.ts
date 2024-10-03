@@ -1,6 +1,7 @@
-import { Error } from './error'
+import { Error } from './error';
+import { ApiRequest } from './apiRequest';
 
-export interface GetOrderStatusesRequest {
+export interface GetOrderStatusesRequest extends ApiRequest {
 	StartDate: string;
 	EndDate: string;
 }
