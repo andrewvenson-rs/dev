@@ -36,13 +36,14 @@ export const getInventoryInfo = async (
     console.log("getInventoryInfo:", JSON.stringify(request));
     const result = await client.GetInventoryInfoAsync(request);
     const response = await parseResponse(result);
+    if (!response) return null;
     console.log(
       response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0],
     );
     return {
       GetInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-          "GetInventoryInfoResponse"
+        "GetInventoryInfoResponse"
         ][0]["GetInventoryInfoResult"],
     };
   } catch (error) {
@@ -59,10 +60,11 @@ export const getCartInventoryInfo = async (
     console.log("getCartInventoryInfo:", JSON.stringify(request));
     const result = await client.GetCartInventoryInfoAsync(request);
     const response = parseResponse(result);
+    if (!response) return null;
     return {
       GetCartInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-          "GetCartInventoryInfoResponse"
+        "GetCartInventoryInfoResponse"
         ][0]["GetCartInventoryInfoResult"],
     };
   } catch (error) {
@@ -78,7 +80,9 @@ export const createCustomer = async (
   try {
     console.log("createCustomer:", JSON.stringify(request));
     const result = await client.CreateCustomerAsync(request);
-    return parseResponse(result);
+    const response = parseResponse(result);
+    if (!response) return null
+    return response
   } catch (error) {
     console.error("Error creating customer:", error);
     return null;
@@ -92,7 +96,9 @@ export const createPaymentMethod = async (
   try {
     console.log("createPaymentMethod:", JSON.stringify(request));
     const result = await client.CreatePaymentMethodAsync(request);
-    return parseResponse(result);
+    const response = parseResponse(result);
+    if (!response) return null
+    return response
   } catch (error) {
     console.error("Error creating payment method:", error);
     return null;
@@ -106,7 +112,9 @@ export const createOrder = async (
   try {
     console.log("createOrder:", JSON.stringify(request));
     const result = await client.CreateOrderAsync(request);
-    return parseResponse(result);
+    const response = parseResponse(result);
+    if (!response) return null
+    return response
   } catch (error) {
     console.error("Error creating order:", error);
     return null;
@@ -121,10 +129,10 @@ export const createReturn = async (
     console.log("createReturn:", JSON.stringify(request));
     const result = await client.CreateReturnAsync(request);
     const response = parseResponse(result);
-
+    if (!response) return null;
     const { ReturnID, ReturnLabelURL, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["CreateReturnResponse"][0][
-        "CreateReturnResult"
+      "CreateReturnResult"
       ][0];
 
     return {
@@ -148,12 +156,11 @@ export const getOrderStatuses = async (
     console.log("getOrderStatuses:", JSON.stringify(request));
     const result = await client.GetOrderStatusesAsync(request);
     const response = await parseResponse(result);
-
+    if (!response) return null;
     const { JSONStatuses: jsonStatuses, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["GetOrderStatusesResponse"][0][
-        "GetOrderStatusesResult"
+      "GetOrderStatusesResult"
       ][0];
-
     return {
       GetOrderStatusesResult: {
         JSONStatuses: JSON.parse(jsonStatuses[0]),
