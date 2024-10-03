@@ -11,7 +11,7 @@ const main = async () => {
     return null;
   }
 
-  const { API_USER, API_KEY, ENVIRONMENT } = JSON.parse(secret);
+  const { API_USER, API_KEY, ENVIRONMENT, VERSION } = JSON.parse(secret);
 
   const orderStatusRequest: GetOrderStatusesRequest = {
     StartDate: "2024-08-25",
@@ -19,21 +19,23 @@ const main = async () => {
     APIPassword: API_KEY,
     APIUsername: API_USER,
     APIEnvironment: ENVIRONMENT,
-    Version: "1.1",
+    Version: VERSION,
   };
 
   const client = await createSoapClient(WSDL_URL);
   const orderStatuses = await getOrderStatuses(client, orderStatusRequest);
 
+
   if (orderStatuses) {
-    console.log(
-      JSON.parse(
-        orderStatuses["soap:Envelope"]["soap:Body"][0][
-        "GetOrderStatusesResponse"
-        ][0]["GetOrderStatusesResult"][0]["JSONStatuses"][0],
-      ),
-    );
+    if (orderStatuses["Errors"][0]) {
+      return null
+    }
+    const statuses = JSON.parse(
+      orderStatuses["JSONStatuses"][0],
+    )
+    console.log(statuses.filter(({ TrackingNumber }) => !!!TrackingNumber));
   }
+  return null
 };
 
 main();

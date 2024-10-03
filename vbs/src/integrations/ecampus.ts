@@ -112,7 +112,10 @@ export const getOrderStatuses = async (
 ): Promise<GetOrderStatusesResponse | null> => {
   try {
     const result = await client.GetOrderStatusesAsync(request);
-    return parseResponse(result);
+    const response = await parseResponse(result)
+    return response["soap:Envelope"]["soap:Body"][0][
+      "GetOrderStatusesResponse"
+    ][0]["GetOrderStatusesResult"][0];
   } catch (error) {
     console.error("Error fetching order statuses:", error);
     return null;
