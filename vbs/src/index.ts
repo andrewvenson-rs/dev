@@ -14,8 +14,7 @@ const _getOrderStatuses = async (request: GetOrderStatusesRequest) => {
   console.log(
     "orders with tracking numbers",
     result.JSONStatuses.filter(
-      ({ OrderItem: { TrackingNumber } }) =>
-        typeof TrackingNumber === "string",
+      ({ OrderItem: { TrackingNumber } }) => typeof TrackingNumber === "string",
     ),
   );
 };

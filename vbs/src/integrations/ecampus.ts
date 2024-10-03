@@ -44,7 +44,7 @@ export const getInventoryInfo = async (
     return {
       GetInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-        "GetInventoryInfoResponse"
+          "GetInventoryInfoResponse"
         ][0]["GetInventoryInfoResult"],
     };
   } catch (error) {
@@ -66,7 +66,7 @@ export const getCartInventoryInfo = async (
     return {
       GetCartInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-        "GetCartInventoryInfoResponse"
+          "GetCartInventoryInfoResponse"
         ][0]["GetCartInventoryInfoResult"],
     };
   } catch (error) {
@@ -84,8 +84,8 @@ export const createCustomer = async (
     const result = await client.CreateCustomerAsync(request);
     if (!result) return null;
     const response = parseResponse(result);
-    if (!response) return null
-    return response
+    if (!response) return null;
+    return response;
   } catch (error) {
     console.error("Error creating customer:", error);
     return null;
@@ -101,8 +101,8 @@ export const createPaymentMethod = async (
     const result = await client.CreatePaymentMethodAsync(request);
     if (!result) return null;
     const response = parseResponse(result);
-    if (!response) return null
-    return response
+    if (!response) return null;
+    return response;
   } catch (error) {
     console.error("Error creating payment method:", error);
     return null;
@@ -118,8 +118,8 @@ export const createOrder = async (
     const result = await client.CreateOrderAsync(request);
     if (!result) return null;
     const response = parseResponse(result);
-    if (!response) return null
-    return response
+    if (!response) return null;
+    return response;
   } catch (error) {
     console.error("Error creating order:", error);
     return null;
@@ -138,7 +138,7 @@ export const createReturn = async (
     if (!response) return null;
     const { ReturnID, ReturnLabelURL, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["CreateReturnResponse"][0][
-      "CreateReturnResult"
+        "CreateReturnResult"
       ][0];
     return {
       CreateReturnResult: {
@@ -165,7 +165,7 @@ export const getOrderStatuses = async (
     if (!response) return null;
     const { JSONStatuses: jsonStatuses, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["GetOrderStatusesResponse"][0][
-      "GetOrderStatusesResult"
+        "GetOrderStatusesResult"
       ][0];
     return {
       GetOrderStatusesResult: {

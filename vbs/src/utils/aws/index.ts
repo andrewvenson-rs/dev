@@ -3,7 +3,6 @@ import {
   GetSecretValueCommand,
 } from "@aws-sdk/client-secrets-manager";
 
-
 export const getSecret = async (
   secretName: string,
 ): Promise<string | undefined> => {
@@ -16,7 +15,7 @@ export const getSecret = async (
     });
     if (!command) return undefined;
     const response = await client.send(command);
-    if (!response) return undefined
+    if (!response) return undefined;
     return response?.SecretString || undefined;
   } catch (error) {
     console.error("Error retrieving secret:", error);
