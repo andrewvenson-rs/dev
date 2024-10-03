@@ -33,8 +33,16 @@ export const getInventoryInfo = async (
   request: InventoryInfoRequest,
 ): Promise<InventoryInfoResponse | null> => {
   try {
+    console.log("getInventoryInfo:", JSON.stringify(request));
     const result = await client.GetInventoryInfoAsync(request);
-    return parseResponse(result);
+    const response = await parseResponse(result);
+    return {
+      GetInventoryInfoResult:
+        response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0]
+      // response["soap:Envelope"]["soap:Body"][0][
+      // "GetInventoryInfoResponse"
+      // ][0]["GetInventoryInfoResult"]
+    };
   } catch (error) {
     console.error("Error fetching inventory info:", error);
     return null;
@@ -46,8 +54,15 @@ export const getCartInventoryInfo = async (
   request: CartInventoryInfoRequest,
 ): Promise<CartInventoryInfoResponse | null> => {
   try {
+    console.log("getCartInventoryInfo:", JSON.stringify(request));
     const result = await client.GetCartInventoryInfoAsync(request);
-    return parseResponse(result);
+    const response = parseResponse(result);
+    return {
+      GetCartInventoryInfoResult:
+        response["soap:Envelope"]["soap:Body"][0][
+        "GetCartInventoryInfoResponse"
+        ][0]["GetCartInventoryInfoResult"],
+    };
   } catch (error) {
     console.error("Error fetching cart inventory info:", error);
     return null;
@@ -59,6 +74,7 @@ export const createCustomer = async (
   request: CreateCustomerRequest,
 ): Promise<CreateCustomerResponse | null> => {
   try {
+    console.log("createCustomer:", JSON.stringify(request));
     const result = await client.CreateCustomerAsync(request);
     return parseResponse(result);
   } catch (error) {
@@ -72,6 +88,7 @@ export const createPaymentMethod = async (
   request: CreatePaymentMethodRequest,
 ): Promise<CreatePaymentMethodResponse | null> => {
   try {
+    console.log("createPaymentMethod:", JSON.stringify(request));
     const result = await client.CreatePaymentMethodAsync(request);
     return parseResponse(result);
   } catch (error) {
@@ -85,6 +102,7 @@ export const createOrder = async (
   request: CreateOrderRequest,
 ): Promise<CreateOrderResponse | null> => {
   try {
+    console.log("createOrder:", JSON.stringify(request));
     const result = await client.CreateOrderAsync(request);
     return parseResponse(result);
   } catch (error) {
@@ -98,8 +116,22 @@ export const createReturn = async (
   request: CreateReturnRequest,
 ): Promise<CreateReturnResponse | null> => {
   try {
+    console.log("createReturn:", JSON.stringify(request));
     const result = await client.CreateReturnAsync(request);
-    return parseResponse(result);
+    const response = parseResponse(result);
+
+    const { ReturnID, ReturnLabelURL, Errors } =
+      response["soap:Envelope"]["soap:Body"][0]["CreateReturnResponse"][0][
+      "CreateReturnResult"
+      ][0];
+
+    return {
+      CreateReturnResult: {
+        ReturnID,
+        ReturnLabelURL,
+        Errors,
+      },
+    };
   } catch (error) {
     console.error("Error creating return:", error);
     return null;
@@ -111,18 +143,21 @@ export const getOrderStatuses = async (
   request: GetOrderStatusesRequest,
 ): Promise<GetOrderStatusesResponse | null> => {
   try {
+    console.log("getOrderStatuses:", JSON.stringify(request));
     const result = await client.GetOrderStatusesAsync(request);
-    const response = await parseResponse(result)
+    const response = await parseResponse(result);
 
-    const JSONStatuses = JSON.parse(response["soap:Envelope"]["soap:Body"][0][
-      "GetOrderStatusesResponse"
-    ][0]["GetOrderStatusesResult"][0]['JSONStatuses'][0])
+    const { JSONStatuses: jsonStatuses, Errors } =
+      response["soap:Envelope"]["soap:Body"][0]["GetOrderStatusesResponse"][0][
+      "GetOrderStatusesResult"
+      ][0];
 
-    const Errors = response["soap:Envelope"]["soap:Body"][0][
-      "GetOrderStatusesResponse"
-    ][0]["GetOrderStatusesResult"][0]['Errors']
-
-    return { GetOrderStatusesResult: { JSONStatuses, Errors } }
+    return {
+      GetOrderStatusesResult: {
+        JSONStatuses: JSON.parse(jsonStatuses[0]),
+        Errors,
+      },
+    };
   } catch (error) {
     console.error("Error fetching order statuses:", error);
     return null;

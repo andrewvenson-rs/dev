@@ -1,8 +1,43 @@
 import { getSecret } from "./utils/aws";
 import { createSoapClient } from "./utils/ecampus";
-import { getOrderStatuses } from "./integrations/ecampus";
+import { getOrderStatuses, getInventoryInfo } from "./integrations/ecampus";
 import { GetOrderStatusesRequest } from "./interfaces/ecampus/orderStatus";
+import { ApiRequest } from "./interfaces/ecampus/apiRequest";
+import { InventoryInfoRequest } from "./interfaces/ecampus/inventoryInfo";
 import { WSDL_URL } from "./constants/ecampus";
+
+const _getOrderStatuses = async (
+  request: GetOrderStatusesRequest
+) => {
+  const client = await createSoapClient(WSDL_URL);
+  const orderStatuses = await getOrderStatuses(client, request);
+  const result = orderStatuses?.GetOrderStatusesResult;
+
+  if (result) {
+    if (result.Errors?.[0]) {
+      return null;
+    }
+    console.log(result.JSONStatuses, result.JSONStatuses?.length);
+  }
+};
+
+const _getInventoryInfo = async (
+  request: InventoryInfoRequest
+) => {
+
+  const client = await createSoapClient(WSDL_URL);
+  const inventoryInfo = await getInventoryInfo(client, request);
+  const results = inventoryInfo
+  console.log(results)
+
+  /*
+  if (results) {
+    results.forEach((result) => {
+      console.log(result.ISBN, result.Condition);
+    })
+  }
+  */
+};
 
 const main = async () => {
   const secret = await getSecret("ecampus");
@@ -13,25 +48,15 @@ const main = async () => {
 
   const { API_USER, API_KEY, ENVIRONMENT, VERSION } = JSON.parse(secret);
 
-  const orderStatusRequest: GetOrderStatusesRequest = {
-    StartDate: "2024-08-25",
-    EndDate: "2024-09-01",
+  const apiRequestData: ApiRequest = {
     APIPassword: API_KEY,
     APIUsername: API_USER,
     APIEnvironment: ENVIRONMENT,
     Version: VERSION,
   };
 
-  const client = await createSoapClient(WSDL_URL);
-  const orderStatuses = await getOrderStatuses(client, orderStatusRequest);
-  const result = orderStatuses?.GetOrderStatusesResult;
-
-  if (result) {
-    if (result.Errors?.[0]) {
-      return null
-    }
-    console.log(result.JSONStatuses, result.JSONStatuses?.length)
-  };
-}
+  await _getOrderStatuses({ StartDate: "2024-08-15", EndDate: "2024-09-01", ...apiRequestData });
+  //await _getInventoryInfo({ inventoryInfo: { ISBN: "9780985837952", Condition: "n", EdTechSchoolID: 1 }, ...apiRequestData });
+};
 
 main();
