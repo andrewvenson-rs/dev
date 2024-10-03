@@ -140,7 +140,6 @@ export const createReturn = async (
       response["soap:Envelope"]["soap:Body"][0]["CreateReturnResponse"][0][
       "CreateReturnResult"
       ][0];
-
     return {
       CreateReturnResult: {
         ReturnID,
