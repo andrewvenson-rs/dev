@@ -1,7 +1,7 @@
 import { createSoapClient } from './utils/ecampus'
 import { getOrderStatuses } from './integrations/ecampus'
-import { GetOrderStatusesRequest } from './interfaces/ecampus/orderStatus.ts'
-import { WSDL_URL } from './constants/ecampus/index.ts'
+import { GetOrderStatusesRequest } from './interfaces/ecampus/orderStatus'
+import { WSDL_URL } from './constants/ecampus'
 
 const main = async () => {
 	const orderStatusRequest: GetOrderStatusesRequest = {
