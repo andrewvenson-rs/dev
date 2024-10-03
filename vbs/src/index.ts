@@ -6,7 +6,13 @@ import { WSDL_URL } from "./constants/ecampus";
 
 const main = async () => {
   const secret = await getSecret("ecampus");
+
+  if (!secret) {
+    return null;
+  }
+
   const { API_USER, API_KEY, ENVIRONMENT } = JSON.parse(secret);
+
   const orderStatusRequest: GetOrderStatusesRequest = {
     StartDate: "2024-08-25",
     EndDate: "2024-09-01",
@@ -18,13 +24,16 @@ const main = async () => {
 
   const client = await createSoapClient(WSDL_URL);
   const orderStatuses = await getOrderStatuses(client, orderStatusRequest);
-  console.log(
-    JSON.parse(
-      orderStatuses["soap:Envelope"]["soap:Body"][0][
-      "GetOrderStatusesResponse"
-      ][0]["GetOrderStatusesResult"][0]["JSONStatuses"][0],
-    ),
-  );
+
+  if (orderStatuses) {
+    console.log(
+      JSON.parse(
+        orderStatuses["soap:Envelope"]["soap:Body"][0][
+        "GetOrderStatusesResponse"
+        ][0]["GetOrderStatusesResult"][0]["JSONStatuses"][0],
+      ),
+    );
+  }
 };
 
 main();
