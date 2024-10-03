@@ -24,18 +24,14 @@ const main = async () => {
 
   const client = await createSoapClient(WSDL_URL);
   const orderStatuses = await getOrderStatuses(client, orderStatusRequest);
+  const result = orderStatuses?.GetOrderStatusesResult;
 
-
-  if (orderStatuses) {
-    if (orderStatuses["Errors"][0]) {
+  if (result) {
+    if (result.Errors?.[0]) {
       return null
     }
-    const statuses = JSON.parse(
-      orderStatuses["JSONStatuses"][0],
-    )
-    console.log(statuses.filter(({ TrackingNumber }) => !!!TrackingNumber));
-  }
-  return null
-};
+    console.log(result.JSONStatuses, result.JSONStatuses?.length)
+  };
+}
 
 main();
