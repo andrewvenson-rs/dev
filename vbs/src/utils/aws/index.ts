@@ -15,6 +15,7 @@ export const getSecret = async (
       SecretId: `${process.env.environmentName}/${secretName}`,
     });
     const response = await client.send(command);
+    if (!response) return undefined
     return response.SecretString;
   } catch (error) {
     console.error("Error retrieving secret:", error);

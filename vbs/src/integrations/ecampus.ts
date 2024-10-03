@@ -35,6 +35,7 @@ export const getInventoryInfo = async (
   try {
     console.log("getInventoryInfo:", JSON.stringify(request));
     const result = await client.GetInventoryInfoAsync(request);
+    if (!result) return null;
     const response = await parseResponse(result);
     if (!response) return null;
     console.log(
@@ -59,6 +60,7 @@ export const getCartInventoryInfo = async (
   try {
     console.log("getCartInventoryInfo:", JSON.stringify(request));
     const result = await client.GetCartInventoryInfoAsync(request);
+    if (!result) return null;
     const response = parseResponse(result);
     if (!response) return null;
     return {
@@ -80,6 +82,7 @@ export const createCustomer = async (
   try {
     console.log("createCustomer:", JSON.stringify(request));
     const result = await client.CreateCustomerAsync(request);
+    if (!result) return null;
     const response = parseResponse(result);
     if (!response) return null
     return response
@@ -96,6 +99,7 @@ export const createPaymentMethod = async (
   try {
     console.log("createPaymentMethod:", JSON.stringify(request));
     const result = await client.CreatePaymentMethodAsync(request);
+    if (!result) return null;
     const response = parseResponse(result);
     if (!response) return null
     return response
@@ -112,6 +116,7 @@ export const createOrder = async (
   try {
     console.log("createOrder:", JSON.stringify(request));
     const result = await client.CreateOrderAsync(request);
+    if (!result) return null;
     const response = parseResponse(result);
     if (!response) return null
     return response
@@ -128,6 +133,7 @@ export const createReturn = async (
   try {
     console.log("createReturn:", JSON.stringify(request));
     const result = await client.CreateReturnAsync(request);
+    if (!result) return null;
     const response = parseResponse(result);
     if (!response) return null;
     const { ReturnID, ReturnLabelURL, Errors } =
@@ -155,6 +161,7 @@ export const getOrderStatuses = async (
   try {
     console.log("getOrderStatuses:", JSON.stringify(request));
     const result = await client.GetOrderStatusesAsync(request);
+    if (!result) return null;
     const response = await parseResponse(result);
     if (!response) return null;
     const { JSONStatuses: jsonStatuses, Errors } =
