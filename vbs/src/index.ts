@@ -11,13 +11,13 @@ const _getOrderStatuses = async (
 ) => {
   const client = await createSoapClient(WSDL_URL);
   const orderStatuses = await getOrderStatuses(client, request);
-  const result = orderStatuses?.GetOrderStatusesResult;
+  const result: any = orderStatuses?.GetOrderStatusesResult;
 
   if (result) {
     if (result.Errors?.[0]) {
       return null;
     }
-    console.log(result.JSONStatuses, result.JSONStatuses?.length);
+    console.log("orders with tracking numbers", result.JSONStatuses.filter(({ OrderItem: { TrackingNumber } }) => typeof TrackingNumber === "string"));
   }
 };
 
@@ -29,6 +29,7 @@ const _getInventoryInfo = async (
   const inventoryInfo = await getInventoryInfo(client, request);
   const results = inventoryInfo
   console.log(results)
+  console.log(results?.GetInventoryInfoResult?.[0]?.Errors?.[0]?.['Error'])
 
   /*
   if (results) {
@@ -56,7 +57,7 @@ const main = async () => {
   };
 
   await _getOrderStatuses({ StartDate: "2024-08-15", EndDate: "2024-09-01", ...apiRequestData });
-  //await _getInventoryInfo({ inventoryInfo: { ISBN: "9780985837952", Condition: "n", EdTechSchoolID: 1 }, ...apiRequestData });
+  await _getInventoryInfo({ inventoryInfo: { ISBN: "9780471099550", Condition: "N", EdTechSchoolID: 6665 }, ...apiRequestData });
 };
 
 main();

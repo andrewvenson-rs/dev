@@ -36,12 +36,10 @@ export const getInventoryInfo = async (
     console.log("getInventoryInfo:", JSON.stringify(request));
     const result = await client.GetInventoryInfoAsync(request);
     const response = await parseResponse(result);
+    console.log(response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0])
     return {
       GetInventoryInfoResult:
-        response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0]
-      // response["soap:Envelope"]["soap:Body"][0][
-      // "GetInventoryInfoResponse"
-      // ][0]["GetInventoryInfoResult"]
+        response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0]["GetInventoryInfoResult"]
     };
   } catch (error) {
     console.error("Error fetching inventory info:", error);
