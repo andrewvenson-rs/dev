@@ -1,9 +1,9 @@
 export const WSDL_URL = "https://api.ecampus.com/orderapi/?wsdl";
-export const SHIP_BY_USPS = 1
-export const ECAMPUS_ORDER_STATUS_AUTH = "AUTH"
-export const ECAMPUS_ORDER_STATUS_CMP = "CMP"
-export const ECAMPUS_ORDER_STATUS_CAN = "CAN"
-export const ECAMPUS_ORDER_STATUS_RTN = "RTN"
-export const ECAMPUS_ORDER_STATUS_PRO = "PRO"
-export const ECAMPUS_BOOK_CONDITION_NEW = "N"
-export const ECAMPUS_BOOK_CONDITION_USED = "U"
+export const SHIP_BY_USPS = 1;
+export const ECAMPUS_ORDER_STATUS_AUTH = "AUTH"; // order confirmed
+export const ECAMPUS_ORDER_STATUS_CMP = "CMP"; // shipped
+export const ECAMPUS_ORDER_STATUS_CAN = "CAN"; // book
+export const ECAMPUS_ORDER_STATUS_RTN = "RTN"; // processing(awaiting shipping)
+export const ECAMPUS_ORDER_STATUS_PRO = "PRO";
+export const ECAMPUS_BOOK_CONDITION_NEW = "N";
+export const ECAMPUS_BOOK_CONDITION_USED = "U";
