@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface CreateOrderRequest extends ApiRequest {
@@ -37,8 +37,7 @@ export interface CreateOrderResponse {
   CreateOrderResult: CreateOrderResult;
 }
 
-export interface CreateOrderResult {
-  Errors?: Error[];
+export interface CreateOrderResult extends Errors {
   EcampusOrderId: number;
   Status: number;
   GrandTotal: number;

@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface CartInventoryInfoRequest extends ApiRequest {
@@ -33,8 +33,7 @@ export interface CartInventoryInfoResponse {
   GetCartInventoryInfoResult: CartInventoryInfoResult[];
 }
 
-export interface CartInventoryInfoResult {
-  Errors?: Error[];
+export interface CartInventoryInfoResult extends Errors {
   ISBN?: string;
   Condition?: string;
   Quantity: number;

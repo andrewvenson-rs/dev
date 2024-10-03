@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface CreateReturnRequest extends ApiRequest {
@@ -14,8 +14,7 @@ export interface CreateReturnResponse {
   CreateReturnResult: CreateReturnResult;
 }
 
-export interface CreateReturnResult {
-  Errors?: Error[];
+export interface CreateReturnResult extends Errors {
   ReturnID?: string;
   ReturnLabelURL?: string;
 }

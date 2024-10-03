@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface CreatePaymentMethodRequest extends ApiRequest {
@@ -27,7 +27,6 @@ export interface CreatePaymentMethodResponse {
   CreatePaymentMethodResult: CreatePaymentMethodResult;
 }
 
-export interface CreatePaymentMethodResult {
-  Errors?: Error[];
+export interface CreatePaymentMethodResult extends Errors {
   EcampusPaymentID: number;
 }

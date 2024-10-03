@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface GetOrderStatusesRequest extends ApiRequest {
@@ -10,7 +10,6 @@ export interface GetOrderStatusesResponse {
   GetOrderStatusesResult: OrderStatusesResult;
 }
 
-export interface OrderStatusesResult {
-  Errors?: Error[];
+export interface OrderStatusesResult extends Errors {
   JSONStatuses?: string;
 }

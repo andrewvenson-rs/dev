@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface InventoryInfoRequest extends ApiRequest {
@@ -15,8 +15,7 @@ export interface InventoryInfoResponse {
   GetInventoryInfoResult: InventoryInfoResult[];
 }
 
-export interface InventoryInfoResult {
-  Errors?: Error[];
+export interface InventoryInfoResult extends Errors {
   ISBN?: string;
   Condition?: string;
   Quantity: number;

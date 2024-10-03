@@ -1,4 +1,4 @@
-import { Error } from "./error";
+import { Errors } from "./error";
 import { ApiRequest } from "./apiRequest";
 
 export interface CreateCustomerRequest extends ApiRequest {
@@ -15,8 +15,7 @@ export interface CreateCustomerResponse {
   CreateCustomerResult: CreateCustomerResult;
 }
 
-export interface CreateCustomerResult {
-  Errors?: Error[];
+export interface CreateCustomerResult extends Errors {
   EcampusCustomerID: number;
   EcampusCustomerExists: boolean;
   EmailAddress?: string;
