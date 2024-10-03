@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.662.0",
     "@types/xml2js": "^0.4.14",
     "soap": "^1.1.5",
     "ts-node": "^10.9.2",
