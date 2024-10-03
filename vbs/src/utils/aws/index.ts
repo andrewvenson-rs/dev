@@ -11,7 +11,7 @@ export const getSecret = async (
   secretName: string,
 ): Promise<string | undefined> => {
   try {
-    const command = new GetSecretValueCommand({ SecretId: secretName });
+    const command = new GetSecretValueCommand({ SecretId: `${process.env.environmentName}/${secretName}` });
     const response = await client.send(command);
     return response.SecretString;
   } catch (error) {
