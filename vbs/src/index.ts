@@ -6,9 +6,7 @@ import { ApiRequest } from "./interfaces/ecampus/apiRequest";
 import { InventoryInfoRequest } from "./interfaces/ecampus/inventoryInfo";
 import { WSDL_URL } from "./constants/ecampus";
 
-const _getOrderStatuses = async (
-  request: GetOrderStatusesRequest
-) => {
+const _getOrderStatuses = async (request: GetOrderStatusesRequest) => {
   const client = await createSoapClient(WSDL_URL);
   const orderStatuses = await getOrderStatuses(client, request);
   const result: any = orderStatuses?.GetOrderStatusesResult;
@@ -17,19 +15,22 @@ const _getOrderStatuses = async (
     if (result.Errors?.[0]) {
       return null;
     }
-    console.log("orders with tracking numbers", result.JSONStatuses.filter(({ OrderItem: { TrackingNumber } }) => typeof TrackingNumber === "string"));
+    console.log(
+      "orders with tracking numbers",
+      result.JSONStatuses.filter(
+        ({ OrderItem: { TrackingNumber } }) =>
+          typeof TrackingNumber === "string",
+      ),
+    );
   }
 };
 
-const _getInventoryInfo = async (
-  request: InventoryInfoRequest
-) => {
-
+const _getInventoryInfo = async (request: InventoryInfoRequest) => {
   const client = await createSoapClient(WSDL_URL);
   const inventoryInfo = await getInventoryInfo(client, request);
-  const results = inventoryInfo
-  console.log(results)
-  console.log(results?.GetInventoryInfoResult?.[0]?.Errors?.[0]?.['Error'])
+  const results = inventoryInfo;
+  console.log(results);
+  console.log(results?.GetInventoryInfoResult?.[0]?.Errors?.[0]?.["Error"]);
 
   /*
   if (results) {
@@ -56,8 +57,19 @@ const main = async () => {
     Version: VERSION,
   };
 
-  await _getOrderStatuses({ StartDate: "2024-08-15", EndDate: "2024-09-01", ...apiRequestData });
-  await _getInventoryInfo({ inventoryInfo: { ISBN: "9780471099550", Condition: "N", EdTechSchoolID: 6665 }, ...apiRequestData });
+  await _getOrderStatuses({
+    StartDate: "2024-08-15",
+    EndDate: "2024-09-01",
+    ...apiRequestData,
+  });
+  await _getInventoryInfo({
+    inventoryInfo: {
+      ISBN: "9780471099550",
+      Condition: "N",
+      EdTechSchoolID: 6665,
+    },
+    ...apiRequestData,
+  });
 };
 
 main();

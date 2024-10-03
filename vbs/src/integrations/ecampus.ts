@@ -36,10 +36,14 @@ export const getInventoryInfo = async (
     console.log("getInventoryInfo:", JSON.stringify(request));
     const result = await client.GetInventoryInfoAsync(request);
     const response = await parseResponse(result);
-    console.log(response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0])
+    console.log(
+      response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0],
+    );
     return {
       GetInventoryInfoResult:
-        response["soap:Envelope"]["soap:Body"][0]["GetInventoryInfoResponse"][0]["GetInventoryInfoResult"]
+        response["soap:Envelope"]["soap:Body"][0][
+          "GetInventoryInfoResponse"
+        ][0]["GetInventoryInfoResult"],
     };
   } catch (error) {
     console.error("Error fetching inventory info:", error);
@@ -58,7 +62,7 @@ export const getCartInventoryInfo = async (
     return {
       GetCartInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-        "GetCartInventoryInfoResponse"
+          "GetCartInventoryInfoResponse"
         ][0]["GetCartInventoryInfoResult"],
     };
   } catch (error) {
@@ -120,7 +124,7 @@ export const createReturn = async (
 
     const { ReturnID, ReturnLabelURL, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["CreateReturnResponse"][0][
-      "CreateReturnResult"
+        "CreateReturnResult"
       ][0];
 
     return {
@@ -147,7 +151,7 @@ export const getOrderStatuses = async (
 
     const { JSONStatuses: jsonStatuses, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["GetOrderStatusesResponse"][0][
-      "GetOrderStatusesResult"
+        "GetOrderStatusesResult"
       ][0];
 
     return {
