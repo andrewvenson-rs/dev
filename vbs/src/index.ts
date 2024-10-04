@@ -33,18 +33,21 @@ const main = async () => {
   if (!secret) {
     return null;
   }
+
   const { API_USER, API_KEY, ENVIRONMENT, VERSION } = JSON.parse(secret);
   const apiRequestData: ApiRequest = {
-    APIPassword: API_KEY,
+    APIPassword: API_KEY, // this is my life
     APIUsername: API_USER,
     APIEnvironment: ENVIRONMENT,
     Version: VERSION,
   };
+
   await _getOrderStatuses({
     StartDate: "2024-08-15",
     EndDate: "2024-09-01",
     ...apiRequestData,
   });
+
   await _getInventoryInfo({
     inventoryInfo: {
       ISBN: "9780471099550",
