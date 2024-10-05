@@ -36,7 +36,7 @@ const main = async () => {
 
   const { API_USER, API_KEY, ENVIRONMENT, VERSION } = JSON.parse(secret);
   const apiRequestData: ApiRequest = {
-    APIPassword: API_KEY, // this is my life
+    APIPassword: API_KEY,
     APIUsername: API_USER,
     APIEnvironment: ENVIRONMENT,
     Version: VERSION,
