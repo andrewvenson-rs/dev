@@ -44,7 +44,7 @@ export const getInventoryInfo = async (
     return {
       GetInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-          "GetInventoryInfoResponse"
+        "GetInventoryInfoResponse"
         ][0]["GetInventoryInfoResult"],
     };
   } catch (error) {
@@ -66,7 +66,7 @@ export const getCartInventoryInfo = async (
     return {
       GetCartInventoryInfoResult:
         response["soap:Envelope"]["soap:Body"][0][
-          "GetCartInventoryInfoResponse"
+        "GetCartInventoryInfoResponse"
         ][0]["GetCartInventoryInfoResult"],
     };
   } catch (error) {
@@ -138,7 +138,7 @@ export const createReturn = async (
     if (!response) return null;
     const { ReturnID, ReturnLabelURL, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["CreateReturnResponse"][0][
-        "CreateReturnResult"
+      "CreateReturnResult"
       ][0];
     return {
       CreateReturnResult: {
@@ -165,8 +165,12 @@ export const getOrderStatuses = async (
     if (!response) return null;
     const { JSONStatuses: jsonStatuses, Errors } =
       response["soap:Envelope"]["soap:Body"][0]["GetOrderStatusesResponse"][0][
-        "GetOrderStatusesResult"
+      "GetOrderStatusesResult"
       ][0];
+    if (Errors && Errors.length > 0) {
+      console.log("getOrderStatuses returned the following Errors:", Errors)
+      return null
+    }
     return {
       GetOrderStatusesResult: {
         JSONStatuses: JSON.parse(jsonStatuses[0]),
